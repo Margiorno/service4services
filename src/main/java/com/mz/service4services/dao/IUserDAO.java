@@ -13,4 +13,6 @@ public interface IUserDAO {
     User save(User user);
 
     void deleteById(int id);
+
+    User findByEmail(String email);
 }
