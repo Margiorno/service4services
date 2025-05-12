@@ -36,15 +36,15 @@ public class UsersController {
     }
 
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(@RequestBody Map<String, String> body) {
+    public ResponseEntity<?> signIn(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         String password = body.get("password");
 
         try {
-            String user = userService.signIn(email,password);
-            return ResponseEntity.ok(user);
+            Map<String, String> tokens = userService.signIn(email, password);
+            return ResponseEntity.ok(tokens);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
