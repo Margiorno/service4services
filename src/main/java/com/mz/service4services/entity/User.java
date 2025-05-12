@@ -25,12 +25,11 @@ public class User {
 
     public User() {}
 
-    public User(int id, String email, String password, String firstName, String lastName) {
-        this.id = id;
+    public User(String email, String encodedPassword, String firstname, String lastname) {
         this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.password = encodedPassword;
+        this.firstName = firstname;
+        this.lastName = lastname;
     }
 
     public int getId() {

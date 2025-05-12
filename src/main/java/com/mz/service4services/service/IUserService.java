@@ -12,4 +12,8 @@ public interface IUserService {
     User save(User user);
 
     void deleteById(int id);
+
+    User signUp(String email, String password, String firstname, String lastname);
+
+    String signIn(String email, String password);
 }
