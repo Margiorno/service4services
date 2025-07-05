@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="service-catalog-service" />
+        <module name="tests" />
       </profile>
     </annotationProcessing>
   </component>

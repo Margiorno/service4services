@@ -1,6 +1,7 @@
 package com.pm.servicecatalogservice.service;
 
-import com.pm.servicecatalogservice.dto.CategoryResponseDTO;
+import com.pm.servicecatalogservice.dto.CategoryDTO;
+import com.pm.servicecatalogservice.exception.InvalidCategoryException;
 import com.pm.servicecatalogservice.mapper.CategoryMapper;
 import com.pm.servicecatalogservice.model.ServiceCategory;
 import com.pm.servicecatalogservice.repository.CategoryRepository;
@@ -13,15 +14,27 @@ import java.util.stream.StreamSupport;
 @Service
 public class CategoryService {
 
-    private CategoryRepository serviceRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository serviceRepository) {
-        this.serviceRepository = serviceRepository;
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
-    public List<CategoryResponseDTO> getCategories() {
-        Iterable<ServiceCategory> categories = serviceRepository.findAll();
+    public List<CategoryDTO> getCategories() {
+        Iterable<ServiceCategory> categories = categoryRepository.findAll();
         return StreamSupport.stream(categories.spliterator(), false).map(CategoryMapper::toDTO).toList();
+    }
+
+    public CategoryDTO addCategory(CategoryDTO categoryDTO) {
+
+        if (categoryDTO.getName().isEmpty())
+            throw new InvalidCategoryException("Category name cant be empty");
+
+        if (categoryRepository.existsByNameIgnoreCase(categoryDTO.getName()))
+            throw new InvalidCategoryException("This category already exists " + categoryDTO.getName());
+
+        ServiceCategory model = categoryRepository.save(CategoryMapper.toModel(categoryDTO));
+        return CategoryMapper.toDTO(model);
     }
 }
