@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.*;
 public class TemplateTests {
     @BeforeAll
     static void setUp(){
-        RestAssured.baseURI = "http://localhost:8080";
+        RestAssured.baseURI = "http://localhost:12000";
     }
 
     @Test
