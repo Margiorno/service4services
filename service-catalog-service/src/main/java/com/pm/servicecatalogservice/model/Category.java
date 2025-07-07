@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
-public class ServiceCategory {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

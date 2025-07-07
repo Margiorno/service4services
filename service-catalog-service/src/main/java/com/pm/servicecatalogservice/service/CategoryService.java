@@ -3,7 +3,7 @@ package com.pm.servicecatalogservice.service;
 import com.pm.servicecatalogservice.dto.CategoryDTO;
 import com.pm.servicecatalogservice.exception.InvalidCategoryException;
 import com.pm.servicecatalogservice.mapper.CategoryMapper;
-import com.pm.servicecatalogservice.model.ServiceCategory;
+import com.pm.servicecatalogservice.model.Category;
 import com.pm.servicecatalogservice.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class CategoryService {
     }
 
     public List<CategoryDTO> getCategories() {
-        Iterable<ServiceCategory> categories = categoryRepository.findAll();
+        Iterable<Category> categories = categoryRepository.findAll();
         return StreamSupport.stream(categories.spliterator(), false).map(CategoryMapper::toDTO).toList();
     }
 
@@ -34,7 +34,14 @@ public class CategoryService {
         if (categoryRepository.existsByNameIgnoreCase(categoryDTO.getName()))
             throw new InvalidCategoryException("This category already exists " + categoryDTO.getName());
 
-        ServiceCategory model = categoryRepository.save(CategoryMapper.toModel(categoryDTO));
+        Category model = categoryRepository.save(CategoryMapper.toModel(categoryDTO));
         return CategoryMapper.toDTO(model);
+    }
+
+    public Category getByName(String name) {
+        if (!categoryRepository.existsByNameIgnoreCase(name))
+            throw new InvalidCategoryException("This category does not exist " + name);
+
+        return categoryRepository.findByNameIgnoreCase(name);
     }
 }

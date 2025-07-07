@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
-public class ServiceTemplate {
+public class Template {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -17,7 +17,7 @@ public class ServiceTemplate {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    private ServiceCategory serviceCategory;
+    private Category category;
 
     public UUID getId() {
         return id;
@@ -35,11 +35,11 @@ public class ServiceTemplate {
         this.serviceName = serviceName;
     }
 
-    public @NotNull ServiceCategory getServiceCategory() {
-        return serviceCategory;
+    public @NotNull Category getServiceCategory() {
+        return category;
     }
 
-    public void setServiceCategory(@NotNull ServiceCategory serviceCategory) {
-        this.serviceCategory = serviceCategory;
+    public void setServiceCategory(@NotNull Category category) {
+        this.category = category;
     }
 }
