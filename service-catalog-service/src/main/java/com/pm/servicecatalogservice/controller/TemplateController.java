@@ -25,4 +25,17 @@ public class TemplateController {
         List<TemplateDTO> templates = templateService.getAllByCategory(category);
         return ResponseEntity.ok(templates);
     }
+
+    @GetMapping
+    public ResponseEntity<List<TemplateDTO>> getAllTemplates() {
+        List<TemplateDTO> templates = templateService.getAll();
+        return ResponseEntity.ok(templates);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<TemplateDTO> addTemplate(@RequestBody TemplateDTO template) {
+        TemplateDTO newTemplate = templateService.add(template);
+
+        return ResponseEntity.ok(newTemplate);
+    }
 }

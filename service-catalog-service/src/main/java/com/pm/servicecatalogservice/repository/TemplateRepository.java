@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface TemplateRepository extends CrudRepository<Template, UUID> {
     List<Template> findByCategory(Category category);
+    boolean existsByServiceNameIgnoreCase(String serviceName);
 }

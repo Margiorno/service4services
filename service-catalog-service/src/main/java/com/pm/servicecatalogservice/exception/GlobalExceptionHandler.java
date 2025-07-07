@@ -11,7 +11,15 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCategoryException.class)
-    public ResponseEntity<Map<String,String>> handleCategoryAlreadyExistsException(InvalidCategoryException ex) {
+    public ResponseEntity<Map<String,String>> handleInvalidCategoryException(InvalidCategoryException ex) {
+        Map<String,String> map = new HashMap<>();
+
+        map.put("message", ex.getMessage());
+        return ResponseEntity.badRequest().body(map);
+    }
+
+    @ExceptionHandler(InvalidTemplateNameException.class)
+    public ResponseEntity<Map<String,String>> handleInvalidTemplateNameException(InvalidTemplateNameException ex) {
         Map<String,String> map = new HashMap<>();
 
         map.put("message", ex.getMessage());
