@@ -31,10 +31,17 @@ public class ProviderTests {
             """.formatted(name, address, phone, email);
 
 
-        RestAssured.given()
+        Response response = RestAssured.given()
                 .contentType("application/json")
                 .body(payload)
                 .when().post("/providers/add")
+                .then().statusCode(200)
+                .extract().response();
+
+        String id = response.jsonPath().getString("id");
+
+        RestAssured.given()
+                .when().get("/providers/" + id)
                 .then().statusCode(200);
     }
 

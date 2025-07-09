@@ -19,4 +19,11 @@ public class CategoryMapper {
 
         return model;
     }
+
+//    catalog.Category toProtoCategory(Category category) {
+//        return catalog.Category.newBuilder()
+//                .setId(category.getId().toString())
+//                .setName(category.getName())
+//                .build();
+//    }
 }

@@ -20,4 +20,12 @@ public class TemplateMapper {
 
         return model;
     }
+
+//    catalog.Template toProtoTemplate(Template template) {
+//        return catalog.Template.newBuilder()
+//                .setId(template.getId().toString())
+//                .setServiceName(template.getServiceName())
+//                .setCategory(toProtoCategory(template.getServiceCategory()))
+//                .build();
+//    }
 }
