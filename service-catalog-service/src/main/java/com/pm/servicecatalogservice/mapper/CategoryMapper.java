@@ -1,16 +1,21 @@
 package com.pm.servicecatalogservice.mapper;
 
-import com.pm.servicecatalogservice.dto.CategoryDTO;
+import com.pm.servicecatalogservice.dto.CategoryRequestDTO;
+import com.pm.servicecatalogservice.dto.CategoryResponseDTO;
 import com.pm.servicecatalogservice.model.Category;
 
 public class CategoryMapper {
-    public static CategoryDTO toDTO(Category category) {
-        return new CategoryDTO(category.getName());
+    public static CategoryResponseDTO toDTO(Category category) {
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(category.getId().toString());
+        categoryResponseDTO.setName(category.getName());
+
+        return categoryResponseDTO;
     }
 
-    public static Category toModel(CategoryDTO categoryDTO) {
+    public static Category toModel(CategoryRequestDTO categoryRequestDTO) {
         Category model = new Category();
-        model.setName(categoryDTO.getName().toLowerCase());
+        model.setName(categoryRequestDTO.getName().toLowerCase());
 
         return model;
     }

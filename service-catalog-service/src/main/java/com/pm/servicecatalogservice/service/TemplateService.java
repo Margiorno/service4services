@@ -1,9 +1,9 @@
 package com.pm.servicecatalogservice.service;
 
-import com.pm.servicecatalogservice.dto.CategoryDTO;
-import com.pm.servicecatalogservice.dto.TemplateDTO;
+import com.pm.servicecatalogservice.dto.CategoryRequestDTO;
+import com.pm.servicecatalogservice.dto.TemplateRequestDTO;
+import com.pm.servicecatalogservice.dto.TemplateResponseDTO;
 import com.pm.servicecatalogservice.exception.InvalidTemplateNameException;
-import com.pm.servicecatalogservice.mapper.CategoryMapper;
 import com.pm.servicecatalogservice.mapper.TemplateMapper;
 import com.pm.servicecatalogservice.model.Category;
 import com.pm.servicecatalogservice.model.Template;
@@ -27,18 +27,18 @@ public class TemplateService {
     }
 
 
-    public List<TemplateDTO> getAllByCategory(CategoryDTO categoryDTO) {
-        Category category = categoryService.getByName(categoryDTO.getName());
+    public List<TemplateResponseDTO> getAllByCategory(CategoryRequestDTO categoryRequestDTO) {
+        Category category = categoryService.getByName(categoryRequestDTO.getName());
 
         return templateRepository.findByCategory(category).stream().map(TemplateMapper::toDTO).toList();
     }
 
-    public List<TemplateDTO> getAll() {
+    public List<TemplateResponseDTO> getAll() {
         Iterable<Template> templates = templateRepository.findAll();
         return StreamSupport.stream(templates.spliterator(), false).map(TemplateMapper::toDTO).toList();
     }
 
-    public TemplateDTO add(TemplateDTO templateDTO) {
+    public TemplateResponseDTO add(TemplateRequestDTO templateDTO) {
         if (templateRepository.existsByServiceNameIgnoreCase(templateDTO.getName()))
             throw new InvalidTemplateNameException("Template with this name already exists");
 

@@ -1,16 +1,20 @@
 package com.pm.servicecatalogservice.mapper;
 
-import com.pm.servicecatalogservice.dto.CategoryDTO;
-import com.pm.servicecatalogservice.dto.TemplateDTO;
-import com.pm.servicecatalogservice.model.Category;
+import com.pm.servicecatalogservice.dto.TemplateRequestDTO;
+import com.pm.servicecatalogservice.dto.TemplateResponseDTO;
 import com.pm.servicecatalogservice.model.Template;
 
 public class TemplateMapper {
-    public static TemplateDTO toDTO(Template template) {
-        return new TemplateDTO(template.getServiceName(), template.getServiceCategory().getName());
+    public static TemplateResponseDTO toDTO(Template template) {
+        TemplateResponseDTO templateResponseDTO = new TemplateResponseDTO();
+        templateResponseDTO.setId(template.getId().toString());
+        templateResponseDTO.setName(template.getServiceName());
+        templateResponseDTO.setCategory(template.getServiceCategory().getId().toString());
+
+        return templateResponseDTO;
     }
 
-    public static Template toModel(TemplateDTO templateDTO) {
+    public static Template toModel(TemplateRequestDTO templateDTO) {
         Template model = new Template();
         model.setServiceName(templateDTO.getName().toLowerCase());
 

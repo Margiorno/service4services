@@ -18,7 +18,7 @@ import java.util.stream.StreamSupport;
 @Service
 public class ProviderService {
 
-    private ProviderRepository providerRepository;
+    private final ProviderRepository providerRepository;
 
     @Autowired
     public ProviderService(ProviderRepository providerRepository) {
@@ -54,17 +54,25 @@ public class ProviderService {
         return ProviderMapper.toDTO(provider);
     }
 
-
-    public ProviderResponseDTO updateProvider(String id, ProviderRequestDTO providerRequestDTO) {
+    public ProviderResponseDTO patchProvider(String id, ProviderRequestDTO providerRequestDTO) {
         UUID uuid = UUID.fromString(id);
 
-        if (!providerRepository.existsById(uuid)) {
-            throw new ProviderNotFoundException("Provider with this email does not exist: " + id);
-        }
+        Provider provider = providerRepository.findById(uuid)
+                .orElseThrow(()-> new ProviderNotFoundException("Provider with this email does not exist: " + id));
 
-        Provider request = ProviderMapper.toModel(providerRequestDTO);
-        Provider provider = providerRepository.updateById(uuid, request);
+        if(providerRequestDTO.getName() != null)
+            provider.setName(providerRequestDTO.getName());
 
-        return ProviderMapper.toDTO(provider);
+        if(providerRequestDTO.getPhone() != null)
+            provider.setPhone(providerRequestDTO.getPhone());
+
+        if(providerRequestDTO.getEmail() != null)
+            provider.setEmail(providerRequestDTO.getEmail());
+
+        if(providerRequestDTO.getAddress() != null)
+            provider.setAddress(providerRequestDTO.getAddress());
+
+        Provider savedProvider = providerRepository.updateById(uuid,provider);
+        return ProviderMapper.toDTO(savedProvider);
     }
 }

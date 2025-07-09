@@ -2,9 +2,13 @@ package com.pm.providerservice.controller;
 
 import com.pm.providerservice.dto.ProviderRequestDTO;
 import com.pm.providerservice.dto.ProviderResponseDTO;
+import com.pm.providerservice.dto.validators.CreateProviderValidationGroup;
 import com.pm.providerservice.service.ProviderService;
+import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/providers")
 public class ProviderController {
-    private ProviderService providerService;
+    private final ProviderService providerService;
 
     @Autowired
     public ProviderController(ProviderService providerService) {
@@ -27,7 +31,8 @@ public class ProviderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProviderResponseDTO> addProvider(@RequestBody ProviderRequestDTO providerRequestDTO) {
+    public ResponseEntity<ProviderResponseDTO> addProvider(
+            @Validated({Default.class, CreateProviderValidationGroup.class}) @RequestBody ProviderRequestDTO providerRequestDTO) {
         ProviderResponseDTO provider = providerService.addProvider(providerRequestDTO);
 
         return ResponseEntity.ok(provider);
@@ -40,11 +45,11 @@ public class ProviderController {
         return ResponseEntity.ok(provider);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<ProviderResponseDTO> updateProvider(@PathVariable String id,
-                                                              @RequestBody ProviderRequestDTO providerRequestDTO) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProviderResponseDTO> patchProvider(@PathVariable String id,
+                                                             @Validated({Default.class}) @RequestBody ProviderRequestDTO providerRequestDTO) {
 
-        ProviderResponseDTO provider = providerService.updateProvider(id, providerRequestDTO);
+        ProviderResponseDTO provider = providerService.patchProvider(id, providerRequestDTO);
 
         return ResponseEntity.ok(provider);
     }
