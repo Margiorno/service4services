@@ -1,25 +1,36 @@
-package com.pm.servicecatalogservice.exception;
+package com.pm.providerservice.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.nio.file.ProviderNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(InvalidCategoryException.class)
-    public ResponseEntity<Map<String,String>> handleInvalidCategoryException(InvalidCategoryException ex) {
+    @ExceptionHandler(InvalidEmailException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidEmailException(InvalidEmailException ex) {
         Map<String,String> map = new HashMap<>();
 
         map.put("message", ex.getMessage());
         return ResponseEntity.badRequest().body(map);
     }
 
-    @ExceptionHandler(InvalidTemplateNameException.class)
-    public ResponseEntity<Map<String,String>> handleInvalidTemplateNameException(InvalidTemplateNameException ex) {
+    @ExceptionHandler(InvalidPhoneNumberException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidPhoneNumberException(InvalidPhoneNumberException ex) {
+        Map<String,String> map = new HashMap<>();
+
+        map.put("message", ex.getMessage());
+        return ResponseEntity.badRequest().body(map);
+    }
+
+    @ExceptionHandler(ProviderNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleProviderNotFoundException(ProviderNotFoundException ex) {
         Map<String,String> map = new HashMap<>();
 
         map.put("message", ex.getMessage());
@@ -36,6 +47,4 @@ public class GlobalExceptionHandler {
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
-
 }

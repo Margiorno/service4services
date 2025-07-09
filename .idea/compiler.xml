@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="service-catalog-service" />
+        <module name="provider-service" />
         <module name="tests" />
       </profile>
     </annotationProcessing>
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="catalog-service" options="-parameters" />
+      <module name="provider-service" options="-parameters" />
       <module name="service-catalog-service" options="-parameters" />
     </option>
   </component>
