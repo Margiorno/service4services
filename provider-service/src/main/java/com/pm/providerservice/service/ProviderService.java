@@ -72,7 +72,7 @@ public class ProviderService {
         if(providerRequestDTO.getAddress() != null)
             provider.setAddress(providerRequestDTO.getAddress());
 
-        Provider savedProvider = providerRepository.updateById(uuid,provider);
+        Provider savedProvider = providerRepository.save(provider);
         return ProviderMapper.toDTO(savedProvider);
     }
 }

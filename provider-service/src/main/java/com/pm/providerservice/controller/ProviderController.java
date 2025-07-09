@@ -45,7 +45,7 @@ public class ProviderController {
         return ResponseEntity.ok(provider);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ProviderResponseDTO> patchProvider(@PathVariable String id,
                                                              @Validated({Default.class}) @RequestBody ProviderRequestDTO providerRequestDTO) {
 

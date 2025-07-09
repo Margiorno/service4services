@@ -8,5 +8,4 @@ import java.util.UUID;
 public interface ProviderRepository extends CrudRepository<Provider, UUID> {
     boolean existsByEmail(String email);
     boolean existsByPhone(String phone);
-    Provider updateById(UUID id, Provider provider);
 }
