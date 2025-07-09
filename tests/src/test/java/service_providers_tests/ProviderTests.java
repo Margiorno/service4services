@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class ProviderTests {
     @BeforeAll
     static void setUp(){
-        RestAssured.baseURI = "http://localhost:12001";
+        RestAssured.baseURI = "http://localhost:12002";
     }
 
     @Test

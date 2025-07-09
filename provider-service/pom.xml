@@ -63,6 +63,13 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.pm</groupId>
+			<artifactId>proto-catalog</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

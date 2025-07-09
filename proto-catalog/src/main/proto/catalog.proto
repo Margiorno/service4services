@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.pm.proto.catalog;
+
+option java_multiple_files = true;
+option java_package = "com.pm.proto.catalog";
+option java_outer_classname = "CatalogProto";
+
+import "google/protobuf/empty.proto";
+
+// === SERVICE ===
+service CatalogService {
+  rpc GetTemplate(GetTemplateRequest) returns (Template);
+  rpc ListTemplates(google.protobuf.Empty) returns (TemplateList);
+}
+
+// === MESSAGES ===
+message GetTemplateRequest {
+  string id = 1;
+}
+
+message TemplateList {
+  repeated Template templates = 1;
+}
+
+message Template {
+  string id = 1;
+  string serviceName = 2;
+  Category category = 3;
+}
+
+message Category {
+  string name = 1;
+}
