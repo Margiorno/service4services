@@ -53,4 +53,12 @@ public class ProviderController {
 
         return ResponseEntity.ok(provider);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteProvider(@PathVariable String id) {
+
+        providerService.deleteProvider(id);
+
+        return ResponseEntity.ok().build();
+    }
 }

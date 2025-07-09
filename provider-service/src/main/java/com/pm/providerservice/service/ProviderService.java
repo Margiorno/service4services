@@ -75,4 +75,12 @@ public class ProviderService {
         Provider savedProvider = providerRepository.save(provider);
         return ProviderMapper.toDTO(savedProvider);
     }
+
+    public void deleteProvider(String id) {
+        UUID uuid = UUID.fromString(id);
+
+        providerRepository.delete(
+                providerRepository.findById(uuid)
+                        .orElseThrow(()->new ProviderNotFoundException("Provider with this id does not exist: " + id)));
+    }
 }

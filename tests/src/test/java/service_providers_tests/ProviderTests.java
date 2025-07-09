@@ -233,4 +233,38 @@ public class ProviderTests {
                 .when().patch("/providers/update/" + id)
                 .then().statusCode(400);
     }
+
+    @Test
+    public void deleteProvider_shouldReturnOkAndNotFoundAfterward() {
+        String name = "provider";
+        String address = "Krakow ul. Skarzynskiego 2";
+        String phone = String.format("%09d", System.currentTimeMillis() % 1_000_000_000);
+        String email = "provider" + System.currentTimeMillis() % 1000 + "@test.com";
+
+        String payload = """
+        {
+          "name": "%s",
+          "address": "%s",
+          "phone": "%s",
+          "email": "%s"
+        }
+        """.formatted(name, address, phone, email);
+
+        Response response = RestAssured.given()
+                .contentType("application/json")
+                .body(payload)
+                .when().post("/providers/add")
+                .then().statusCode(200)
+                .extract().response();
+
+        String id = response.jsonPath().getString("id");
+
+        RestAssured.given()
+                .when().delete("/providers/delete/" + id)
+                .then().statusCode(200);
+
+        RestAssured.given()
+                .when().get("/providers/" + id)
+                .then().statusCode(400);
+    }
 }
